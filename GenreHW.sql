@@ -1,35 +1,44 @@
-CREATE TABLE `album`(
-    `Album_ID` SERIAL PRIMARY KEY,
-    `Album_name` VARCHAR(60),
-    `Album_year_of_issue` INT NOT NULL
+create table Genre (
+id SERIAL PRIMARY key,
+name varchar(60)
 );
-CREATE TABLE `author`(
-    `Author_ID` SERIAL PRIMARY KEY,
-    `Author_name` VARCHAR(60)
+
+create table author (
+id SERIAL PRIMARY key,
+name varchar(60)
 );
-CREATE TABLE `authoralbum`(
-    `Author_ID` INT NOT NULL,
-    `Album_ID` INT REFERENCES 'album(Album_ID)'
+
+create table album (
+id SERIAL PRIMARY key,
+name varchar(60),
+year integer not null
 );
-CREATE TABLE `collection`(
-    `Collection_ID` SERIAL PRIMARY KEY,
-    `Collection_name` VARCHAR(60),
-    `Collection_year_of_issue` INT NOT NULL
+
+create table track (
+id SERIAL PRIMARY key,
+name varchar(60),
+duration integer not null,
+album_id integer references album(id)
 );
-CREATE TABLE `collectiontracks`(
-    `Tracks_ID` INT REFERENCES 'tracks(Tracks_ID)',
-    `Collection_ID` INT REFERENCES 'collection(Collection_ID)'
+
+create table collection (
+id SERIAL PRIMARY key,
+year integer not null,
+name varchar(60)
 );
-CREATE TABLE `genre`(
-    `Genre_ID` SERIAL PRIMARY key,
-    `Genre_name` VARCHAR(60)
+
+create table author_genre (
+author_id integer references author(id),
+genre_id integer references genre(id)
 );
-CREATE TABLE `genreauthor`(
-    `Genre_ID` INT REFERENCES 'genre(Genre_ID)',
-    `Author_ID` INT REFERENCES 'author(Author_ID)'
+
+create table author_album (
+author_id integer references author(id),
+album_id integer references album(id)
 );
-CREATE TABLE `tracks`(
-    `Tracks_ID` SERIAL PRIMARY KEY,
-    `Track_name` VARCHAR(60),
-    `Track_duration` INT NOT NULL
+
+
+create table track_collection (
+track_id integer references track(id),
+collection_id integer references collection(id)
 );
